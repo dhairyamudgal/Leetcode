@@ -1,0 +1,82 @@
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+
+    ListNode* reverse(ListNode* head){
+        ListNode* temp = head;
+        ListNode* prev = NULL;
+
+        while(temp != NULL){
+            ListNode* nextNode = temp -> next;
+            temp -> next = prev;
+            prev = temp;
+            temp = nextNode;
+        }
+
+        head = prev;
+    return head;
+
+    }
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+       ListNode* head1 =  reverse(l1);
+       ListNode* head2 =  reverse(l2);
+       ListNode* answer= NULL;
+       ListNode* dummy = NULL;
+
+       // 1st: 3 4 2 7
+       //2nd:  4 6 5
+
+       int carry =0;
+       while(head1 != NULL || head2 != NULL || carry){
+           int sum =0;
+           if(head1 != NULL){
+               sum = sum + head1 -> val;
+               head1 = head1 -> next;
+           }
+
+           if(head2 != NULL){
+               sum = sum + head2 -> val;
+               head2 = head2 -> next;
+           }
+            // 1st: 3 4 2 7
+            //2nd:  4 6 5
+            // ans: 7 
+
+           if(carry){
+               sum = sum + carry;
+           }
+
+            carry = sum /10;
+            sum = sum % 10;
+            ListNode* new_node = new ListNode(sum);
+
+            if (dummy == nullptr) {
+                dummy = new_node;
+                answer = dummy;
+            } else {
+                dummy->next = new_node;
+                dummy = dummy->next;
+            }
+        
+           
+       }
+
+       answer = reverse(answer);
+
+
+        return answer;
+        
+        
+    }
+};
+

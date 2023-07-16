@@ -1,0 +1,53 @@
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+.// find middle using two pointer , start -> next, fast->next->next
+// start from head up till middleNode and reverse it
+// add val in node from middleNode and prev
+
+class Solution {
+public:
+    int pairSum(ListNode* head) {
+
+        int ans = INT_MIN;
+        ListNode* start = head;
+        ListNode* fast = head;
+        ListNode* temp = head;
+        ListNode* prev = NULL;
+
+        while(start != NULL && fast != NULL){
+            start= start -> next;
+            fast = fast->next->next;
+        }
+        ListNode* middle_node = start;
+
+        while(temp != middle_node){
+            ListNode* next_node = temp -> next;
+            temp -> next = prev;
+            prev = temp;
+            temp = next_node;
+        }
+
+        while(prev != NULL && middle_node != NULL){
+            int sum = prev-> val + middle_node -> val;
+            ans = max(ans, sum);
+            prev = prev -> next;
+            middle_node = middle_node -> next;
+        }
+
+        return ans;
+        
+    }
+};
+

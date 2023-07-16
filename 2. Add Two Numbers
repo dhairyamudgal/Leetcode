@@ -1,8 +1,4 @@
 
-
-// creating new node
-// or by using recursion (in- place)
-
 /**
  * Definition for singly-linked list.
  * struct ListNode {

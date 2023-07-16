@@ -1,0 +1,46 @@
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {
+       
+    ListNode* startCut = list1;
+    ListNode* endCut = list1;
+
+    // Traverse list1 to find the nodes at positions a-1 and b
+    for (int i = 0; i < a - 1; ++i) {
+        startCut = startCut->next;
+    }
+
+    for (int i = 0; i <= b ; ++i) {
+        endCut = endCut->next;
+    }
+
+    // Attach the head of list2 to the end of startCut
+    startCut->next = list2;
+
+    // Find the end of list2
+    ListNode* temp = list2;
+    while (temp->next != nullptr) {
+        temp = temp->next;
+    }
+
+    // Attach the remaining part of list1 to the end of list2
+    temp->next = endCut;
+
+    return list1;
+}
+
+    
+};
+
