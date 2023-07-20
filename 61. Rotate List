@@ -1,0 +1,36 @@
+
+
+
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if (head == nullptr || k == 0) {
+            return head;
+        }
+
+        int n = 1;
+        ListNode* temp = head;
+
+        while (temp->next != nullptr) {
+            n++;
+            temp = temp->next;
+        }
+
+        int idx = n - (k % n);
+        if (idx == n) {
+            return head; 
+        }
+
+        temp->next = head; 
+
+        while (idx > 0) {
+            temp = temp->next;
+            idx--;
+        }
+
+        ListNode* newHead = temp->next;
+        temp->next = nullptr; // Break the circular list
+
+        return newHead;
+    }
+};
