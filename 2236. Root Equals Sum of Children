@@ -1,0 +1,14 @@
+
+
+class Solution {
+public:
+    bool checkTree(TreeNode* root) {
+        TreeNode* leftNode = root -> left;
+        TreeNode* rightNode = root -> right;
+
+        if(root -> val == leftNode -> val + rightNode -> val){
+            return true;
+        }
+        return false;
+    }
+};
