@@ -1,0 +1,42 @@
+
+
+class Solution {
+public:
+    int len(ListNode* head) {
+        int count = 0;
+        ListNode* temp = head;
+        while (temp != nullptr) {
+            count++;
+            temp = temp->next;
+        }
+        return count;
+    }
+
+    vector<ListNode*> splitListToParts(ListNode* head, int k) {
+        vector<ListNode*> ans;
+        int n = len(head);
+        int sizeOfPart = n / k;
+        int remainder = n % k;
+        ListNode* temp = head;
+
+        while (k > 0) {
+            int partSize = sizeOfPart + (remainder > 0 ? 1 : 0);
+            remainder--;
+
+            ListNode* newNode = new ListNode();
+            ListNode* dummy = newNode;
+            for (int i = 0; i < partSize; i++) {
+                if (temp != nullptr) {
+                    dummy->next = temp;
+                    dummy = dummy->next;
+                    temp = temp->next;
+                }
+            }
+            dummy->next = nullptr;
+            ans.push_back(newNode->next);
+            k--;
+        }
+
+        return ans;
+    }
+};
