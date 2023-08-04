@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void solve(TreeNode* temp, int &sum) {
+        if (temp == NULL) return;
+
+        if (temp->val % 2 == 0) {
+            if (temp->left != NULL) {
+                if (temp->left->left != NULL) sum += temp->left->left->val;
+                if (temp->left->right != NULL) sum += temp->left->right->val;
+            }
+
+            if (temp->right != NULL) {
+                if (temp->right->left != NULL) sum += temp->right->left->val;
+                if (temp->right->right != NULL) sum += temp->right->right->val;
+            }
+        }
+
+        solve(temp->left, sum);
+        solve(temp->right, sum);
+    }
+
+    int sumEvenGrandparent(TreeNode* root) {
+        int sum = 0;
+        solve(root, sum);
+        return sum;
+    }
+};

@@ -1,0 +1,35 @@
+
+class Solution {
+public:
+    bool solve(TreeNode* temp, int targetSum, int &sum) {
+        // Base case: Check if it's a leaf node.
+        if (temp->left == NULL && temp->right == NULL) {
+            return (sum + temp->val) == targetSum;
+        }
+        
+        sum += temp->val;
+        
+        bool leftResult = false;
+        bool rightResult = false;
+        
+        if (temp->left != NULL) {
+            leftResult = solve(temp->left, targetSum, sum);
+        }
+        
+        if (temp->right != NULL) {
+            rightResult = solve(temp->right, targetSum, sum);
+        }
+        
+        // Restore sum before returning from the current recursive call.
+        sum -= temp->val;
+        
+        // If either subtree has a path with the target sum, return true.
+        return leftResult || rightResult;
+    }
+    
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if (root == NULL) return false;
+        int sum = 0;
+        return solve(root, targetSum, sum);
+    }
+};
